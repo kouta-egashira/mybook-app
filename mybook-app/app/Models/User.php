@@ -41,4 +41,12 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+
+    // Userテーブルを軸にPostテーブルとリレーション
+    public function posts()
+    {
+        // Laravel8は、('App\Models\Post') この書き方
+        return $this->hasMany('App\Models\Post');
+    }
 }
