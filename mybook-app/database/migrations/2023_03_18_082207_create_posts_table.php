@@ -14,16 +14,17 @@ class CreatePostsTable extends Migration
     public function up()
     {
         Schema::create('posts', function (Blueprint $table) {
-            $table->bigIncrements('id'); // bigIncrements = 主キーを作成に使う
+            $table->increments('id'); // bigIncrements = 主キーを作成に使う
             $table->unsignedBigInteger('user_id'); // unsignedBigInteger = 外部キーのデータ型によく使う
+            $table->integer('year_id'); // 2023~2024年の外キー
+            $table->integer('category_id'); // 1~12月の外キー
+            $table->string('is_deleted', 4)->default('0');
             $table->string('title');
             $table->string('author');
             $table->string('publication');
             $table->integer('price');
             $table->text('remarks')->nullable();  // nullable = nullを許容する;
-            $table->char('isbn', 13); // ISBNコード
-            $table->string('url'); // url
-            // $table->text('image')->nullable(); // nullable = nullを許容する
+            $table->text('image')->nullable(); // nullable = nullを許容する
             $table->timestamps();
 
             // 外部キー制約 (存在するuserのidしか登録できなくなるので整合性が保てる)

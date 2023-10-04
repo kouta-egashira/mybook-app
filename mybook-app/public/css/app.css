@@ -4144,17 +4144,17 @@ textarea.form-control-lg {
 }
 
 .card {
-  --bs-card-spacer-y: 2rem;
+  --bs-card-spacer-y: 1rem;
   --bs-card-spacer-x: 1rem;
-  --bs-card-title-spacer-y: 1rem;
+  --bs-card-title-spacer-y: 0.5rem;
   --bs-card-border-width: 1px;
   --bs-card-border-color: var(--bs-border-color-translucent);
   --bs-card-border-radius: 0.375rem;
   --bs-card-box-shadow: ;
   --bs-card-inner-border-radius: calc(0.375rem - 1px);
   --bs-card-cap-padding-y: 0.5rem;
-  --bs-card-cap-padding-x: 0.5rem;
-  --bs-card-cap-bg: rgba(0, 0, 0, 0.02);
+  --bs-card-cap-padding-x: 1rem;
+  --bs-card-cap-bg: rgba(0, 0, 0, 0.03);
   --bs-card-cap-color: ;
   --bs-card-height: ;
   --bs-card-color: ;
@@ -10820,44 +10820,10 @@ textarea.form-control-lg {
   }
 }
 
-/* show画面のテキスト表示欄*/
 .text-box {
-    display: inline-block;
     width: 500px;
-    height: 50px;
-}
-
-/* show画面備考欄テキスト調整 */
-.show-text {
-    text-align: center;
-    font-size: 17px;
-    margin-top: 18px;
-}
-
-/* ボタンタブと備考欄の間隔を空ける*/
-.button {
-    margin-top: 50px;
-}
-
-/* 備考欄の文字が入力通りに改行される */
-.remarks-text {
-    text-align: left;
-    white-space: pre-wrap;
-}
-
-/* edit画面戻るボタン位置調整 */
-.return-btn {
-    margin-bottom: 50px;
-}
-
-/* edit画面更新ボタン位置調整 */
-.update-btn {
-    margin-top: 50px;
-}
-
-/* edit画面の書籍画像中央配置 */
-.image-storage {
-    text-align: center;
-    margin-top: 40px;
-    margin-bottom: 30px;
+    height: 200px;
+    margin:auto;
+    text-align: justify;
+    /* background-color: blue; */
 }

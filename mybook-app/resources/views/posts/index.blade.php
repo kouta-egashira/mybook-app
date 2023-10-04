@@ -1,5 +1,4 @@
 @extends('layouts.app')
-
 @section('content')
     <div class="container">
         <div class="row justify-content-center">
@@ -11,14 +10,13 @@
                 </div>
                 <br>
                 <div class="card text-center">
-                    <div class="card-header">
-                    </div>
+                    <div class="card-header">書籍一覧</div>
 
                     {{-- foreachで回すことで一覧で投稿を取得できる --}}
                     @foreach ($posts as $post)
-
                         <div class="card-body">
-                            <h4 class="card-title">{{$post->title}}</h4>
+                            <p>{{$post->year->year}}年 {{$post->category->moth}}月の本</p>
+                            <h4 class="card-title">表題：{{$post->title}}</h4>
                             <h5 class="card-text">著者：{{$post->author}}</h5>
 
                             {{-- @if~@endif = 画像があれば表示する --}}
@@ -39,11 +37,12 @@
                         </div>
                         <div class="card-footer text-muted"></div>
                         <br>
-
                     @endforeach
                 </div>
             </div>
         </div>
-
+    </div>
+    <div class="d-flex justify-content-center mb-5">
+        {{ $posts->links() }}
     </div>
 @endsection
