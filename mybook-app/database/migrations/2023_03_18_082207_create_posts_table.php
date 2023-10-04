@@ -21,7 +21,9 @@ class CreatePostsTable extends Migration
             $table->string('publication');
             $table->integer('price');
             $table->text('remarks')->nullable();  // nullable = nullを許容する;
-            $table->text('image')->nullable(); // nullable = nullを許容する
+            $table->char('isbn', 13); // ISBNコード
+            $table->string('url'); // url
+            // $table->text('image')->nullable(); // nullable = nullを許容する
             $table->timestamps();
 
             // 外部キー制約 (存在するuserのidしか登録できなくなるので整合性が保てる)

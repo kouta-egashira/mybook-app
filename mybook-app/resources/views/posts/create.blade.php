@@ -42,10 +42,19 @@
                         <textarea class="form-control" placeholder="備考" rows="5" name="remarks"></textarea>
                     </div>
                     <br>
-                    {{-- 画像アップロード --}}
-                    <div>
-                        <input id="image" type="file" name="image">
+                    <div class="form-group">
+                        <label>ISBN</label>
+                        <input type="char" class="form-control" placeholder="ISBNを入力してください" name="isbn">
                     </div>
+                    <br>
+                    <div class="form-group">
+                        <label>URL</label>
+                        <input type="string" class="form-control" placeholder="URLを入力してください" name="url">
+                    </div>
+                    {{-- 画像アップロード --}}
+                    {{-- <div>
+                        <input id="image" type="file" name="image">
+                    </div> --}}
                     <br>
                     <div>
                         <button type="submit" class="btn btn-primary">登録する</button>

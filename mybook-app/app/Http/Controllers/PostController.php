@@ -39,6 +39,8 @@ class PostController extends Controller
         $post->publication = $request->publication;
         $post->price = $request->price;
         $post->remarks = $request->remarks;
+        $post->isbn = $request->isbn;
+        $post->url = $request->url;
         $post->user_id = Auth::id(); // ログイン中のユーザのidを入れられる
 
         // 画像保存をする
@@ -46,7 +48,7 @@ class PostController extends Controller
             // getClientOriginalName = 元々のファイル名でファイルを保存する
             $original = request()->file('image')->getClientOriginalName();
             $name = date('Ymd_His').'_'. $original; // 投稿した画像のパスに日時をいれる
-            $file = request()->file('image')->move('storage/images', $name);
+            // $file = request()->file('image')->move('storage/images', $name);
             $post->image = $name;
         }
 
@@ -88,6 +90,8 @@ class PostController extends Controller
         $post->publication = $request->publication;
         $post->price = $request->price;
         $post->remarks = $request->remarks;
+        $post->isbn = $request->isbn;
+        $post->url = $request->url;
         $post->user_id = Auth::id(); // ログイン中のユーザのidを入れられる
 
         // 画像保存をする
@@ -95,7 +99,7 @@ class PostController extends Controller
             // getClientOriginalName = 元々のファイル名でファイルを保存する
             $original = request()->file('image')->getClientOriginalName();
             $name = date('Ymd_His').'_'. $original; // 投稿した画像のパスに日時をいれる
-            $file = request()->file('image')->move('storage/images', $name);
+            // $file = request()->file('image')->move('storage/images', $name);
             $post->image = $name;
         }
 
