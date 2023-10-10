@@ -17,7 +17,7 @@ class CreatePostsTable extends Migration
             $table->increments('id'); // bigIncrements = 主キーを作成に使う
             $table->unsignedBigInteger('user_id'); // unsignedBigInteger = 外部キーのデータ型によく使う
             $table->string('is_deleted', 4)->default('0');
-            $table->date('date'); // 年月日
+            $table->date('date');
             $table->string('title');
             $table->string('author');
             $table->string('publication');
