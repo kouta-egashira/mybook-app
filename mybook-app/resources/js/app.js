@@ -5,11 +5,9 @@
  */
 
 require('./bootstrap');
+window.Vue = require('vue').default;
 
 import Vue from 'vue'
-import BookImageComponent from './components/BookImageComponent'
-
-window.Vue = require('vue').default;
 
 /**
  * The following block of code may be used to automatically register your
@@ -23,7 +21,6 @@ window.Vue = require('vue').default;
 // files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default))
 
 Vue.component('example-component', require('./components/ExampleComponent.vue').default);
-Vue.component('example-component', require('./components/BookImageComponent.vue').default);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to
@@ -33,7 +30,4 @@ Vue.component('example-component', require('./components/BookImageComponent.vue'
 
 const app = new Vue({
     el: '#app',
-    components: {
-        BookImageComponent
-    }
 });

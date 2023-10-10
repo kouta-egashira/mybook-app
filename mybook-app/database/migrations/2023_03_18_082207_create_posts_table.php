@@ -16,9 +16,8 @@ class CreatePostsTable extends Migration
         Schema::create('posts', function (Blueprint $table) {
             $table->increments('id'); // bigIncrements = 主キーを作成に使う
             $table->unsignedBigInteger('user_id'); // unsignedBigInteger = 外部キーのデータ型によく使う
-            $table->integer('year_id'); // 2023~2024年の外キー
-            $table->integer('category_id'); // 1~12月の外キー
             $table->string('is_deleted', 4)->default('0');
+            $table->date('date'); // 年月日
             $table->string('title');
             $table->string('author');
             $table->string('publication');

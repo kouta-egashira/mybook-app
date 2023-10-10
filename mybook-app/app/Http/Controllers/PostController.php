@@ -4,8 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\PostRequest;
 use App\Models\Post;
-use App\Models\Year;
-use App\Models\Category;
 use Illuminate\Support\Facades\Auth;
 
 class PostController extends Controller
@@ -25,11 +23,7 @@ class PostController extends Controller
 
     // データ保存
     public function create() {
-        $year = new Year;
-        $category = new Category;
-        $years = $year->getLists()->prepend('選択', '');
-        $categories = $category->getLists()->prepend('選択', '');
-        return view('posts.create', ['categories' => $categories], ['years' => $years]);
+        return view('posts.create');
     }
 
     // 入力してきた情報を受け取り保存
@@ -37,13 +31,12 @@ class PostController extends Controller
         // dd($request);
         // インスタンスを作成
         $post = new Post;
+        $post->date = $request->date; // 購入年月日
         $post->title = $request->title; // postの中にtitleを保存する。titleはrequestに来ていたtitle
         $post->author = $request->author;
         $post->publication = $request->publication;
         $post->price = $request->price;
         $post->remarks = $request->remarks;
-        $post->year_id = $request->year_id; // 購入年プルダウン
-        $post->category_id = $request->category_id; // 購入月プルダウン
         $post->user_id = Auth::id(); // ログイン中のユーザのidを入れられる
 
         // 画像保存をする
@@ -67,10 +60,6 @@ class PostController extends Controller
 
     // 作成データを編集
     public function edit($id) {  //$id = どの詳細かわかるようにidで受け取るように記載
-        $year = new Year;
-        $category = new Category;
-        $years = $year->getLists();
-        $categories = $category->getLists();
         $post = Post::find($id); // PostModelからidを見つける
 
         // 別のユーザがURLから編集をできなくする
@@ -78,7 +67,7 @@ class PostController extends Controller
             return abort(404);
         }
         // show.bladeに送る
-        return view('posts.edit', ['post' => $post, 'years' => $years, 'categories' => $categories]);
+        return view('posts.edit');
     }
 
     // 編集したデータを保存
@@ -89,6 +78,7 @@ class PostController extends Controller
         if(Auth::id() !== $post->user_id) {
             return abort(404);
         }
+        $post->date = $request->date; // 購入年月日
         $post->title = $request->title;
         $post->author = $request->author;
         $post->publication = $request->publication;

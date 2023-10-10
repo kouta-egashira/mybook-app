@@ -23,18 +23,4 @@ class Post extends Model
     {
         return $this->belongsTo('App\Models\User');
     }
-
-    // Postテーブルを軸にcategorysテーブルとリレーション
-    public function category()
-    {
-        // 投稿は1つのカテゴリーに属する
-        return $this->belongsTo('App\Models\Category');
-    }
-
-    // Postテーブルを軸にyearテーブルとリレーション
-    public function year()
-    {
-        // 投稿は1つのカテゴリーに属する
-        return $this->belongsTo('App\Models\Year');
-    }
 }

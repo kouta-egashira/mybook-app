@@ -10819,11 +10819,3 @@ textarea.form-control-lg {
     display: none !important;
   }
 }
-
-.text-box {
-    width: 500px;
-    height: 200px;
-    margin:auto;
-    text-align: justify;
-    /* background-color: blue; */
-}
