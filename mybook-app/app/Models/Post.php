@@ -6,14 +6,6 @@ use Illuminate\Database\Eloquent\Model;
 
 class Post extends Model
 {
-    // $fillableに設定したもの以外のカラムはユーザーが変更できないようにできる
-    // protected $fillable = [
-    //     'user_id',
-    //     'title',
-    //     'body',
-    //     'image'
-    // ];
-
     // guarded = 指定したカラムはユーザが変更できる
     protected $guarded = ['id'];
 
