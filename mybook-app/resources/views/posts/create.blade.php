@@ -1,5 +1,4 @@
 @extends('layouts.app')
-
 @section('content')
     <div class="container">
         <div class="row justify-content-center">
@@ -14,7 +13,7 @@
                         </ul>
                     </div>
                 @endif
-                <h2>新規登録</h2>
+                <h2>書籍追加</h2>
                 <form action="{{ route('posts.store') }}" method="POST" enctype="multipart/form-data">
                     {{csrf_field()}}  {{-- csrf_field() 悪意のあるユーザが来ないように保護 --}}
 
@@ -56,10 +55,6 @@
                     <br>
                     <div>
                         <button type="submit" class="btn btn-primary">登録する</button>
-                    </div>
-                    <br>
-                    <div>
-                        <a href="{{route('posts.index')}}" class="btn btn-danger">一覧へ戻る</a>
                     </div>
                 </form>
             </div>

@@ -18,38 +18,11 @@
                     {{csrf_field()}}  {{-- csrf_field() 悪意のあるユーザが来ないように保護 --}}
                     {{method_field('PATCH')}} {{-- htmlでPATCHは使えない為、method_field('PATCH')と記載 --}}
 
-                    {{-- 購入年プルダウン2023~2024年 --}}
-                    <label>購入月</label>
-                    <select
-                        id="year_id"
-                        name="year_id"
-                        class="form-control {{ $errors->has('year_id') ? 'is-invalid' : '' }}">
-                        @foreach($years as $id => $year)
-                            <option value="{{ $id }}"
-                                @if ($post->year_id == $id)
-                                    selected
-                                @endif
-                                >{{ $year }}
-                            </option>
-                        @endforeach
-                    </select>
-
-                    {{-- 購入月プルダウン1~12月 --}}
-                    <label>購入月</label>
-                    <select
-                        id="category_id"
-                        name="category_id"
-                        class="form-control {{ $errors->has('category_id') ? 'is-invalid' : '' }}">
-                        @foreach($categories as $id => $moth)
-                            <option value="{{ $id }}"
-                                @if ($post->category_id == $id)
-                                    selected
-                                @endif
-                                >{{ $moth }}
-                            </option>
-                        @endforeach
-                    </select>
-
+                    {{-- 年月日入力 --}}
+                    <div class="form-group">
+                        <label>購入年月日</label>
+                        <input type="date" class="form-control" name="date" value="{{$post->date}}">
+                    </div>
                     <div class="form-group">
                         <label>タイトル</label>
                         {{-- value="{{$post->title}} 編集時に前入力文字が表示されている --}}
@@ -94,11 +67,7 @@
                     </div>
                     <br>
                     <div class="update-btn">
-                        <button type="submit" class="btn btn-primary">更新する</button>
-                    </div>
-                    <br>
-                    <div class="return-btn">
-                        <a href="{{route('posts.index')}}" class="btn btn-danger">一覧へ戻る</a>
+                        <button type="submit" class="btn btn-warning">更新</button>
                     </div>
                 </form>
             </div>

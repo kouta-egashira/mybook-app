@@ -1,0 +1,15 @@
+/*
+ posts/index（一覧画面）
+*/
+/* 検索ボタンを中央配置 */
+.search {
+    text-align: center;
+}
+/* テーブルタグの中央配置 */
+.table {
+    margin: auto;
+}
+/* テキストの改行を行う */
+.index-text {
+    word-break:break-word;
+}
