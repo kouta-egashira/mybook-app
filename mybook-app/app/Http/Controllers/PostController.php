@@ -33,7 +33,7 @@ class PostController extends Controller
 
         // 日付検索（スタート）
         if (!empty($request->start_date)) {
-            $query->where('date', '>', $request->start_date)->get();
+            $query->where('date', '>=', $request->start_date)->get();
         }
 
         // 日付検索（エンド）
