@@ -31,10 +31,12 @@ class PostController extends Controller
             $query->where('author', 'LIKE', "%{$author_name}%");
         }
 
+        // 日付検索（スタート）
         if (!empty($request->start_date)) {
             $query->where('date', '>', $request->start_date)->get();
         }
 
+        // 日付検索（エンド）
         if (!empty($request->end_date)) {
             $query->where('date', '<=', $request->end_date)->get();
         }
@@ -108,11 +110,11 @@ class PostController extends Controller
             return abort(404);
         }
         $post->date = $request->date; // 購入年月日
-        $post->title = $request->title;
-        $post->author = $request->author;
-        $post->publication = $request->publication;
-        $post->price = $request->price;
-        $post->remarks = $request->remarks;
+        $post->title = $request->title; // 書籍タイトル
+        $post->author = $request->author; // 著者名
+        $post->publication = $request->publication; // 出版社
+        $post->price = $request->price; // 金額
+        $post->remarks = $request->remarks; // 備考
         $post->user_id = Auth::id(); // ログイン中のユーザのidを入れられる
         // 画像保存をする
         if (request('image')) {
