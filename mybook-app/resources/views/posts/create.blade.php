@@ -34,6 +34,16 @@
                     </div>
                     <br>
                     <div class="form-group">
+                        <label>ジャンル</label>
+                        <select class="form-control" name="category_id">
+                            <option value="">選択してください</option>
+                            @foreach ($categories as $category)
+                                <option value="{{ $category->id }}">{{ $category->name }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                    <br>
+                    <div class="form-group">
                         <label>出版社</label>
                         <input type="text" class="form-control" placeholder="出版社を入力してください" name="publication">
                     </div>

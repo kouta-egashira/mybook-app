@@ -19,11 +19,13 @@
                     value="{{ request('author_name') }}">
             </div>
 
+            <!-- スタート日 -->
             <div class="col-sm-12 col-md-2">
                 <input type="date" name="start_date" class="form-control" placeholder="日付"
                     value="{{ request('start_date') }}">
             </div>
 
+            <!-- エンド日 -->
             <div class="col-sm-12 col-md-2">
                 <input type="date" name="end_date" class="form-control" placeholder="日付"
                     value="{{ request('end_date') }}">
@@ -46,6 +48,7 @@
                 <th scope="col" nowrap>書籍画像</th>
                 <th scope="col" nowrap>書籍名</th>
                 <th scope="col" nowrap>著者名</th>
+                <th scope="col" nowrap>ジャンル</th>
                 <th scope="col" nowrap>購入価格</th>
                 <th scope="col" nowrap>詳細表示</th>
                 <th scope="col" nowrap>削除</th>
@@ -58,6 +61,7 @@
                             src="{{ asset('storage/images/' . $post->image) }}"></td>
                     <td class="index-text">{{ $post->title }}</td>
                     <td class="index-text" nowrap>{{ $post->author }}</td>
+                    <td class="index-text" nowrap>{{ $post->category->name }}</td>
                     <td class="index-text" nowrap>{{ $post->price }}</td>
                     <td class="index-text" nowrap><a href="{{ route('posts.show', $post->id) }}"><button type="button"
                                 class="btn btn-success">詳細</button></a></td>

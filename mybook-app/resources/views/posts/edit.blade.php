@@ -38,6 +38,18 @@
                     </div>
                     <br>
                     <div class="form-group">
+                        <label>ジャンル</label>
+                        <select class="form-control" name="category_id">
+                            <option value="">選択してください</option>
+                            @foreach ($categories as $category)
+                                <option value="{{ $category->id }}"
+                                    {{ $post->category_id === $category->id ? 'selected' : '' }}>{{ $category->name }}
+                                </option>
+                            @endforeach
+                        </select>
+                    </div>
+                    <br>
+                    <div class="form-group">
                         <label>出版社</label>
                         {{-- value="{{$post->title}} 編集時に前入力文字が表示されている --}}
                         <input type="text" class="form-control" placeholder="出版社を入力して下さい" name="publication"

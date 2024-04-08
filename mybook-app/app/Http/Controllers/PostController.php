@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\PostRequest;
+use App\Models\Category;
 use App\Models\Post;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -50,7 +51,8 @@ class PostController extends Controller
     // データ保存
     public function create()
     {
-        return view('posts.create');
+        $categories = Category::all(); // すべてのカテゴリーを取得
+        return view('posts.create', compact('categories'));  // ビューにカテゴリーデータを渡す
     }
 
     // 入力してきた情報を受け取り保存
@@ -66,6 +68,7 @@ class PostController extends Controller
         $post->price = $request->price;
         $post->remarks = $request->remarks;
         $post->user_id = Auth::id(); // ログイン中のユーザのidを入れられる
+        $post->category_id = $request->category_id; // category_idを保存する
 
         // 画像保存をする
         if (request('image')) {
@@ -96,8 +99,11 @@ class PostController extends Controller
         if (Auth::id() !== $post->user_id) {
             return abort(404);
         }
-        // show.bladeに送る
-        return view('posts.edit', compact('post'));
+
+        // すべてのカテゴリーを取得
+        $categories = Category::all();
+        // postとcategoriesをビューに渡す
+        return view('posts.edit', compact('post', 'categories'));
     }
 
     // 編集したデータを保存
@@ -116,6 +122,8 @@ class PostController extends Controller
         $post->price = $request->price; // 金額
         $post->remarks = $request->remarks; // 備考
         $post->user_id = Auth::id(); // ログイン中のユーザのidを入れられる
+        $post->category_id = $request->category_id; // category_idを更新する
+
         // 画像保存をする
         if (request('image')) {
             // getClientOriginalName = 元々のファイル名でファイルを保存する
