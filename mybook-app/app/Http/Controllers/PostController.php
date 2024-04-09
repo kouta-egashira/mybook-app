@@ -43,7 +43,7 @@ class PostController extends Controller
         }
 
         // ページネーション
-        $posts = $query->orderBy('created_at')->paginate(6); // PostModelから投稿の降順で取得し、6個まで表示
+        $posts = $query->orderBy('date', 'asc')->paginate(6); // PostModelから投稿の降順で取得し、6個まで表示
         $posts->load('user'); // load(‘user’)で$postsに紐ずくuserにアクセスできる
         return view('posts.index', ['posts' => $posts]); // compactで$postsをviewに渡す
     }

@@ -11976,4 +11976,8 @@ textarea.form-control-lg {
   .d-print-none {
     display: none !important;
   }
+
+  .break-text {
+    white-space: pre-wrap; /* CSSのwhite-spaceプロパティを使用して、テキストの折り返しと空白の扱いを制御 */
+  }
 }
