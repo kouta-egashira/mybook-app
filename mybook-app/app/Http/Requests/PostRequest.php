@@ -29,7 +29,7 @@ class PostRequest extends FormRequest
         return [
             // 購入年月日は必須
             'date' => 'required',
-            // タイトルは必須で20文字以内
+            // タイトルは必須
             'title' => 'required',
             // 著者は必須
             'author' => 'required',
@@ -53,7 +53,7 @@ class PostRequest extends FormRequest
             'author.required'  => '著者は必須です。',
             'publication.required'  => '著者は必須です。',
             'price.required'  => '金額は必須です。',
-            'category_id' => 'ジャンルは必須です。',
+            'category_id.required' => 'ジャンルは必須です。',
             'image.required' => '画像は必須です。',
             'image.mimes'  => '画像はjpeg,jpg,png,gifを選択してください。',
         ];

@@ -16,7 +16,9 @@ class PostController extends Controller
         $this->middleware('auth');
     }
 
-    // 一覧表示
+    /**
+     * 一覧表示
+     */
     public function index(Request $request)
     {
         // Postモデルに基づいてクエリビルダを初期化
@@ -43,57 +45,87 @@ class PostController extends Controller
         }
 
         // ページネーション
-        $posts = $query->orderBy('date', 'asc')->paginate(6); // PostModelから投稿の降順で取得し、6個まで表示
-        $posts->load('user'); // load(‘user’)で$postsに紐ずくuserにアクセスできる
-        return view('posts.index', ['posts' => $posts]); // compactで$postsをviewに渡す
+        // PostModelから投稿の昇順で取得し、ページ内に6個まで表示
+        $posts = $query->orderBy('date', 'asc')->paginate(6);
+        // load(‘user’)で$postsに紐ずくuserにアクセスできる
+        $posts->load('user');
+        // 画面に渡す
+        return view('posts.index', ['posts' => $posts]);
     }
 
-    // データ保存
+    /**
+     * データ保存
+     */
     public function create()
     {
-        $categories = Category::all(); // すべてのカテゴリーを取得
-        return view('posts.create', compact('categories'));  // ビューにカテゴリーデータを渡す
+        // 全てのカテゴリーを取得
+        $categories = Category::all();
+        // 画面に渡す
+        return view('posts.create', compact('categories'));
     }
 
-    // 入力してきた情報を受け取り保存
-    public function store(PostRequest $request) // PostRequest = Request/PostRequestで作成したバリデーションを使う
+    /**
+     * 入力情報を受け取り保存
+     * PostRequest = Request/PostRequestで作成したバリデーションを使える
+     */
+    public function store(PostRequest $request)
     {
-        // dd($request);
         // インスタンスを作成
         $post = new Post;
-        $post->date = $request->date; // 購入年月日
-        $post->title = $request->title; // postの中にtitleを保存する。titleはrequestに来ていたtitle
-        $post->author = $request->author;
-        $post->publication = $request->publication;
-        $post->price = $request->price;
-        $post->remarks = $request->remarks;
-        $post->user_id = Auth::id(); // ログイン中のユーザのidを入れられる
-        $post->category_id = $request->category_id; // category_idを保存する
 
-        // 画像保存をする
+        // 購入年月日
+        $post->date = $request->date;
+        // 書籍タイトル
+        $post->title = $request->title;
+        // 著者
+        $post->author = $request->author;
+        // 出版社
+        $post->publication = $request->publication;
+        // 金額
+        $post->price = $request->price;
+        // 備考
+        $post->remarks = $request->remarks;
+        // ログイン中のユーザのidを入れる
+        $post->user_id = Auth::id();
+        // category_idを保存
+        $post->category_id = $request->category_id;
+
+        // 画像保存
         if (request('image')) {
             // getClientOriginalName = 元々のファイル名でファイルを保存する
             $original = request()->file('image')->getClientOriginalName();
-            $name = date('Ymd_His') . '_' . $original; // 投稿した画像のパスに日時をいれる
+            // 投稿した画像のパスに日時をいれる
+            $name = date('Ymd_His') . '_' . $original;
+            // imageファイルを取得後にstorage/imagesへ移動
             $file = request()->file('image')->move('storage/images', $name);
             $post->image = $name;
         }
 
-        $post->save(); // インスタンスを作成したら保存しないといけない
+        // インスタンスを保存
+        $post->save();
         return redirect()->route('posts.index');
     }
 
-    // 作成データを個別表示
-    public function show($id) //$id = どの詳細かわかるようにidで受け取るように記載
+    /**
+     * 作成データを個別表示
+     * ($id) = Postに紐づくid(個別指定できるようにするために使用)
+     */
+    public function show($id)
     {
-        $post = Post::find($id); // PostModelからidを見つけるs
-        return view('posts.show', compact('post')); // show.bladeに送る
+        // PostModelからidを見つける
+        $post = Post::find($id);
+        // show.bladeに渡す
+        return view('posts.show', compact('post'));
     }
 
-    // 作成データを編集
+    /**
+     * 作成データを編集
+     * ($id) = Postに紐づくid(個別指定できるようにするために使用)
+     */
     public function edit($id)
-    {  //$id = どの詳細かわかるようにidで受け取るように記載
-        $post = Post::find($id); // PostModelからidを見つける
+    {
+        // PostModelからidを見つける
+        $post = Post::find($id);
 
         // 別のユーザがURLから編集をできなくする
         if (Auth::id() !== $post->user_id) {
@@ -102,43 +134,65 @@ class PostController extends Controller
 
         // すべてのカテゴリーを取得
         $categories = Category::all();
-        // postとcategoriesをビューに渡す
+        // postとcategoriesを編集画面に渡す
         return view('posts.edit', compact('post', 'categories'));
     }
 
-    // 編集したデータを保存
+    /**
+     * 編集したデータを保存
+     * ($id) = Postに紐づくid(個別指定できるようにするために使用)
+     */
     public function update(PostRequest $request, $id)
-    { //$id = idをいどを受け取るとどのpostか分かり、変更したい内容が来る
-        $post = Post::find($id); // PostModelからidを見つける
+    {
+        // PostModelからidを見つける
+        $post = Post::find($id);
+
         // もし、ログイン中のidとPost_user_idが違ったら404エラーへ飛ばす。
         // 下記記述することで、ログインユーザ以外が勝手に編集や削除をできなくする
         if (Auth::id() !== $post->user_id) {
             return abort(404);
         }
-        $post->date = $request->date; // 購入年月日
-        $post->title = $request->title; // 書籍タイトル
-        $post->author = $request->author; // 著者名
-        $post->publication = $request->publication; // 出版社
-        $post->price = $request->price; // 金額
-        $post->remarks = $request->remarks; // 備考
-        $post->user_id = Auth::id(); // ログイン中のユーザのidを入れられる
-        $post->category_id = $request->category_id; // category_idを更新する
+
+        // 購入年月日
+        $post->date = $request->date;
+        // タイトル
+        $post->title = $request->title;
+        // 著者名
+        $post->author = $request->author;
+        // 出版社
+        $post->publication = $request->publication;
+        // 金額
+        $post->price = $request->price;
+        // 備考
+        $post->remarks = $request->remarks;
+        // ログイン中のユーザのidを入れる
+        $post->user_id = Auth::id();
+        // category_idを更新する
+        $post->category_id = $request->category_id;
 
         // 画像保存をする
         if (request('image')) {
             // getClientOriginalName = 元々のファイル名でファイルを保存する
             $original = request()->file('image')->getClientOriginalName();
-            $name = date('Ymd_His') . '_' . $original; // 投稿した画像のパスに日時をいれる
+            // 投稿した画像のパスに日時をいれる
+            $name = date('Ymd_His') . '_' . $original;
+            // imageファイルを取得後にstorage/imagesへ移動
             $file = request()->file('image')->move('storage/images', $name);
             $post->image = $name;
         }
-        $post->save(); // セーブする
-        return redirect()->route('posts.index'); //indexにもどす
+
+        // インスタンスを保存
+        $post->save();
+        // 一覧画面へ遷移
+        return redirect()->route('posts.index');
     }
 
-    // データを削除
+    /**
+     * データを削除
+     * ($id) = Postに紐づくid(個別指定できるようにするために使用)
+     */
     public function destroy($id)
-    {  //$id = どの詳細かわかるようにidで受け取るように記載
+    {
         // PostModelからidを見つける
         $post = Post::find($id);
 
@@ -148,7 +202,9 @@ class PostController extends Controller
             return abort(404);
         }
 
-        $post->delete(); // 削除
+        // 削除
+        $post->delete();
+        // 一覧画面へ遷移
         return redirect()->route('posts.index');
     }
 }

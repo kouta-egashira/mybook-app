@@ -5,7 +5,8 @@
             <div class="col-md-8">
                 {{-- Request/PostRequestで作成したバリデーションメッセージを表示 --}}
                 @if ($errors->any())
-                    <div class="alert alert-danger"> {{-- エラーがあれば赤色で表示 --}}
+                    {{-- エラーがあれば赤色で表示 --}}
+                    <div class="alert alert-danger">
                         <ul>
                             @foreach ($errors->all() as $error)
                                 <li>{{ $error }}</li>
@@ -15,8 +16,10 @@
                 @endif
                 {{-- $post->id どのpostの更新をするのか --}}
                 <form action="{{ route('posts.update', $post->id) }}" enctype="multipart/form-data" method="POST">
-                    {{ csrf_field() }} {{-- csrf_field() 悪意のあるユーザが来ないように保護 --}}
-                    {{ method_field('PATCH') }} {{-- htmlでPATCHは使えない為、method_field('PATCH')と記載 --}}
+                    {{-- csrf_field() 悪意のあるユーザが来ないように保護 --}}
+                    {{ csrf_field() }}
+                    {{-- htmlでPATCHは使えない為、method_field('PATCH')と記載 --}}
+                    {{ method_field('PATCH') }}
 
                     {{-- 年月日入力 --}}
                     <div class="form-group">

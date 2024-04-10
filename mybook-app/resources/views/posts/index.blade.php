@@ -35,7 +35,6 @@
             </div>
         </form>
     </div>
-    <!-- 登録書籍数の動的表示 -->
     <br>
     <div class="text-center">
         <h5>登録書籍数：{{ $posts->total() }} 冊</h5>
@@ -57,14 +56,18 @@
             @foreach ($posts as $post)
                 <tr>
                     <td class="index-text" nowrap>{{ $post->date }}</td>
-                    <td class="index-text" nowrap><img style="width:80px;"
-                            src="{{ asset('storage/images/' . $post->image) }}"></td>
-                    <td class="index-text">{{ $post->title }}</td>
+                    <td class="index-text" nowrap>
+                        <img style="width:80px;" src="{{ asset('storage/images/' . $post->image) }}">
+                    </td>
+                    <td class="index-text break-text">{{ $post->title }}</td>
                     <td class="index-text break-text">{{ $post->author }}</td>
-                    <td class="index-text" nowrap>{{ $post->category->name }}</td>
+                    <td class="index-text break-text">{{ $post->category->name }}</td>
                     <td class="index-text" nowrap>{{ $post->price }}</td>
-                    <td class="index-text" nowrap><a href="{{ route('posts.show', $post->id) }}"><button type="button"
-                                class="btn btn-success">詳細</button></a></td>
+                    <td class="index-text" nowrap>
+                        <a href="{{ route('posts.show', $post->id) }}">
+                            <button type="button" class="btn btn-success">詳細</button>
+                        </a>
+                    </td>
                     <td>
                         <form action='{{ route('posts.destroy', $post->id) }}' method='post'>
                             {{ csrf_field() }}

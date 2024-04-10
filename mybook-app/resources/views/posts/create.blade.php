@@ -5,7 +5,8 @@
             <div class="col-md-8">
                 {{-- Request/PostRequestで作成したバリデーションメッセージを表示 --}}
                 @if ($errors->any())
-                    <div class="alert alert-danger"> {{-- エラーがあれば赤色で表示 --}}
+                    {{-- エラーがあれば赤色で表示 --}}
+                    <div class="alert alert-danger">
                         <ul>
                             @foreach ($errors->all() as $error)
                                 <li>{{ $error }}</li>
@@ -15,9 +16,10 @@
                 @endif
                 <h2>書籍追加</h2>
                 <form action="{{ route('posts.store') }}" method="POST" enctype="multipart/form-data">
-                    {{ csrf_field() }} {{-- csrf_field() 悪意のあるユーザが来ないように保護 --}}
+                    {{-- csrf_field() 悪意のあるユーザが来ないように保護 --}}
+                    {{ csrf_field() }}
 
-                    {{-- 年月日入力 --}}
+                    {{-- 入力欄 --}}
                     <div class="form-group">
                         <label>購入年月日</label>
                         <input type="date" class="form-control" name="date">
