@@ -39,8 +39,8 @@ class PostRequest extends FormRequest
             'price' => 'required',
             // ジャンルは必須
             'category_id' => 'required',
-            // 画像は必須かつjpeg,jpg,png,gif,サイズがmax超えればエラーを出す
-            'image' => 'file|required|mimes:jpeg,jpg,png,gif|max:10240',
+            // 画像は必須かつjpeg,jpg,pngサイズがmax超えればエラーを出す
+            'image' => 'file|required|mimes:jpeg,jpg,png|max:10240',
         ];
     }
 
@@ -51,11 +51,11 @@ class PostRequest extends FormRequest
             'date.required' => '購入年月日は必須です。',
             'title.required' => 'タイトルは必須です。',
             'author.required'  => '著者は必須です。',
-            'publication.required'  => '著者は必須です。',
+            'publication.required'  => '出版社は必須です。',
             'price.required'  => '金額は必須です。',
             'category_id.required' => 'ジャンルは必須です。',
             'image.required' => '画像は必須です。',
-            'image.mimes'  => '画像はjpeg,jpg,png,gifを選択してください。',
+            'image.mimes'  => '画像はjpeg,jpg,pngを選択してください。',
         ];
     }
 }
