@@ -51,9 +51,34 @@
                     </div>
                     <br>
                     <div class="form-group">
-                        <label>金額</label>
-                        <input type="int" class="form-control" placeholder="金額を入力してください" name="price">
+                        <label>金額(税抜き)</label>
+                        <input type="text" class="form-control" id="price" name="price"
+                            placeholder="半角数字を入力してください">
                     </div>
+                    {{-- 金額フォーム入力制御(半角数字以外は入力できない) --}}
+                    <script>
+                        document.addEventListener('DOMContentLoaded', function() {
+                            const priceInput = document.getElementById('price');
+                            priceInput.addEventListener('input', function() {
+                                // (0-9）以外の文字を空文字（''）に置換
+                                this.value = this.value.replace(/[^0-9]/g, '');
+                            });
+                        });
+                    </script>
+                    {{-- 金額欄入力時にカンマ自動付与 --}}
+                    <script>
+                        document.addEventListener('DOMContentLoaded', function() {
+                            const priceInput = document.getElementById('price');
+                            priceInput.addEventListener('input', function() {
+                                // 先にカンマを除去
+                                let value = this.value.replace(/,/g, '');
+                                // 数字以外は削除
+                                value = value.replace(/[^0-9]/g, '');
+                                // 3桁ごとにカンマを挿入
+                                this.value = value.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+                            });
+                        });
+                    </script>
                     <br>
                     <div class="form-group">
                         <label>備考</label>
@@ -85,7 +110,7 @@
                     </div>
                     <br>
                     <div>
-                        <button type="submit" class="btn btn-primary">登録する</button>
+                        <button type="submit" class="btn btn-primary">登録</button>
                     </div>
                 </form>
             </div>

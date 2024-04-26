@@ -37,7 +37,7 @@
     </div>
     <br>
     <div class="text-center">
-        <h5>登録書籍数：{{ $posts->total() }} 冊</h5>
+        <h5>表示書籍数：{{ $posts->total() }} 冊</h5>
     </div>
     <br>
     <div class="table-responsive">
@@ -48,7 +48,7 @@
                 <th scope="col" nowrap>書籍名</th>
                 <th scope="col" nowrap>著者名</th>
                 <th scope="col" nowrap>ジャンル</th>
-                <th scope="col" nowrap>購入価格</th>
+                <th scope="col" nowrap>購入価格(税抜き)</th>
                 <th scope="col" nowrap>詳細表示</th>
                 <th scope="col" nowrap>削除</th>
             </tr>
@@ -62,7 +62,7 @@
                     <td class="index-text break-text">{{ $post->title }}</td>
                     <td class="index-text break-text">{{ $post->author }}</td>
                     <td class="index-text break-text">{{ $post->category->name }}</td>
-                    <td class="index-text" nowrap>{{ $post->price }}</td>
+                    <td class="index-text" nowrap>{{ number_format($post->price) }}円</td>
                     <td class="index-text" nowrap>
                         <a href="{{ route('posts.show', $post->id) }}">
                             <button type="button" class="btn btn-success">詳細</button>

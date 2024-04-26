@@ -62,9 +62,32 @@
                     <div class="form-group">
                         <label>金額</label>
                         {{-- value="{{$post->title}} 編集時に前入力文字が表示されている --}}
-                        <input type="int" class="form-control" placeholder="金額を入力して下さい" name="price"
-                            value="{{ $post->price }}">
+                        <input type="text" class="form-control" placeholder="半角数字を入力してください" id="price" name="price"
+                            value="{{ number_format($post->price) }}">
                     </div>
+                    {{-- 金額フォーム入力制御(半角数字以外は入力できない) --}}
+                    <script>
+                        document.addEventListener('DOMContentLoaded', function() {
+                            const priceInput = document.getElementById('price');
+                            priceInput.addEventListener('input', function() {
+                                this.value = this.value.replace(/[^0-9]/g, '');
+                            });
+                        });
+                    </script>
+                    {{-- 金額欄入力時にカンマが付く --}}
+                    <script>
+                        document.addEventListener('DOMContentLoaded', function() {
+                            const priceInput = document.getElementById('price');
+                            priceInput.addEventListener('input', function() {
+                                // 先にカンマを除去
+                                let value = this.value.replace(/,/g, '');
+                                // 数字以外は削除
+                                value = value.replace(/[^0-9]/g, '');
+                                // 3桁ごとにカンマを挿入
+                                this.value = value.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+                            });
+                        });
+                    </script>
                     <br>
                     <div class="form-group">
                         <label>備考</label>

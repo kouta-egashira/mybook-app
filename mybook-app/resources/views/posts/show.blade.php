@@ -12,7 +12,7 @@
                         <p class="card-text">出版社：{{ $post->publication }}</p>
                         <p class="card-text">著者名：{{ $post->author }}</p>
                         <p class="card-text">ジャンル：{{ $post->category->name }}</p>
-                        <p class="card-text">金額（税抜き）: {{ $post->price }}円</p>
+                        <p class="card-text">金額(税抜き)：{{ number_format($post->price) }}円</p>
                         {{-- @if~@endif = 画像があれば表示する --}}
                         @if ($post->image)
                             <div>
