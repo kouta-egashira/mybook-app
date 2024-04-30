@@ -22,7 +22,8 @@ class PostController extends Controller
     public function index(Request $request)
     {
         // Postモデルに基づいてクエリビルダを初期化
-        $query = Post::query();
+        // リレーションシップをここで事前読み込み
+        $query = Post::with('user');
 
         // 書籍名の検索キーワードがある場合、そのキーワードを含む商品をクエリに追加
         if ($book_name = $request->book_name) {
@@ -36,19 +37,17 @@ class PostController extends Controller
 
         // 日付検索（スタート）
         if (!empty($request->start_date)) {
-            $query->where('date', '>=', $request->start_date)->get();
+            $query->where('date', '>=', $request->start_date);
         }
 
         // 日付検索（エンド）
         if (!empty($request->end_date)) {
-            $query->where('date', '<=', $request->end_date)->get();
+            $query->where('date', '<=', $request->end_date);
         }
 
         // ページネーション
         // PostModelから投稿の昇順で取得し、ページ内に6個まで表示
         $posts = $query->orderBy('date', 'asc')->paginate(6);
-        // load(‘user’)で$postsに紐ずくuserにアクセスできる
-        $posts->load('user');
         // 画面に渡す
         return view('posts.index', ['posts' => $posts]);
     }

@@ -13,3 +13,44 @@
 .index-text {
     word-break:break-word;
 }
+
+/*
+ モーダルウィンドウの基本スタイル
+*/
+.modal {
+    display: none; /* 最初は非表示 */
+    position: fixed; /* 画面中央に表示 */
+    z-index: 1; /* コンテンツの上に表示 */
+    padding-top: 100px; /* 上部の余白 */
+    left: 0;
+    top: 0;
+    width: 100%; /* 全幅 */
+    height: 100%; /* 全高 */
+    overflow: auto; /* 外部がクリップされたら、スクロールバーを追加 */
+    background-color: rgb(0,0,0); /* フォールバックカラー */
+    background-color: rgba(0,0,0,0.4); /* 黒色、不透明度 */
+}
+
+/* モーダルコンテンツ/ボックス */
+.modal-content {
+    background-color: #fefefe;
+    margin: auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 25%;
+}
+
+/* クローズボタン */
+.close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+}

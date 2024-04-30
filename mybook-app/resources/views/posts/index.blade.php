@@ -86,4 +86,35 @@
         <!-- ページネーションをクリックした際に検索条件を維持する -->
         {{ $posts->appends(request()->query())->links() }}
     </div>
+
+    <!-- モーダルウィンドウ -->
+    <div id="myModal" class="modal">
+        <!-- モーダルコンテンツ -->
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <img id="modalImage" src="">
+        </div>
+    </div>
+
+    {{-- モーダル部分のjs (画像押下で拡大表示、(×)で画像閉じる) --}}
+    <script>
+        document.addEventListener('DOMContentLoaded', (event) => {
+            // 画像がクリックされた時のイベントリスナーを追加
+            document.querySelectorAll('#table-list img').forEach(img => {
+                img.onclick = function() {
+                    var modal = document.getElementById("myModal");
+                    var modalImg = document.getElementById("modalImage");
+                    modal.style.display = "block";
+                    modalImg.src = this.src;
+                }
+            });
+
+            // モーダルのクローズボタンを取得し、クリックイベントリスナーを追加
+            var span = document.getElementsByClassName("close")[0];
+            span.onclick = function() {
+                var modal = document.getElementById("myModal");
+                modal.style.display = "none";
+            }
+        });
+    </script>
 @endsection
