@@ -80,8 +80,8 @@ class PostController extends Controller
         $post->author = $request->author;
         // 出版社
         $post->publication = $request->publication;
-        // 金額
-        $post->price = $request->price;
+        // 金額（カンマ付きの文字列として保存）
+        $post->price = str_replace(',', '', $request->price); // カンマ除去後保存
         // 備考
         $post->remarks = $request->remarks;
         // ログイン中のユーザのidを入れる
@@ -160,8 +160,8 @@ class PostController extends Controller
         $post->author = $request->author;
         // 出版社
         $post->publication = $request->publication;
-        // 金額
-        $post->price = $request->price;
+        // 金額（カンマ付きの文字列として保存）
+        $post->price = str_replace(',', '', $request->price); // カンマ除去後保存
         // 備考
         $post->remarks = $request->remarks;
         // ログイン中のユーザのidを入れる
